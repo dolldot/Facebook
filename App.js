@@ -6,22 +6,11 @@
  * @flow
  */
 
+import React, {Component} from "react";
+import Routes from './Routes';
 
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Beranda from "./Home";
-import Masuk from "./Login";
 
-const AppNavigator = createStackNavigator(
-  {
-    Login: Masuk,
-    Home: Beranda
-  },
-  {
-    initialRouteName: "Login",
-    defaultNavigationOptions: {
-      header: null
-    }
-  }
-);
+const App = () => <Routes/>
 
-export default createAppContainer(AppNavigator);
+export default App;
+

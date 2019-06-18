@@ -28,11 +28,18 @@ class Login extends Component {
   }
 
   render() {
-    
+
+    const { navigate } = this.props.navigation;
+    const textUsername = 'Phone number or email';
+    const textPassword = 'Password';
+    const textLogin = 'Log in';
+    const textForgot = 'Forgotten password?';
+    const textNewAccount = 'Create New Facebook Account';
+
     return (
 
       <View style={styles.container}>
-
+        
         <View>
           <Modal
             animationType='fade'
@@ -70,7 +77,7 @@ class Login extends Component {
         </View>
 
         <View style={styles.sectionOne}>
-          <ImageBackground source={require('./img/banner.png')} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}} >
+          <ImageBackground source={require('../../assets/images/banner.png')} style={{width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center'}} >
             <View style={styles.header}>
                 <Text style={styles.heading}>f</Text>
             </View>
@@ -87,21 +94,21 @@ class Login extends Component {
           </TouchableHighlight>
           
           <View styles={styles.sectionForm}>
-            <TextInput style={styles.textInput} placeholder="Phone number or email address"/>
-            <TextInput style={styles.textInput} placeholder="Password"/>
+            <TextInput style={styles.textInput} placeholder={textUsername}/>
+            <TextInput style={styles.textInput} placeholder={textPassword}/>
             {/* <Button title="Log In" color="#4e69a2" /> */}
-            <TouchableOpacity style={styles.textSubmit} onPress={() => this.props.navigation.navigate('Home')}>
-              <Text style={styles.submitText}>Log In</Text>
+            <TouchableOpacity style={styles.textSubmit} onPress={() => navigate('Home')}>
+              <Text style={styles.submitText}>{textLogin}</Text>
             </TouchableOpacity>
-            <Text style={styles.bottomInfo}>Forgotten password?</Text>
+            <Text style={styles.bottomInfo}>{textForgot}</Text>
           </View>
 
           <Hr lineColor="#eee" width={1} text="OR" style={{color: 'black'}}/>
 
           <View style={styles.sectionFooter}>
             {/* <Button title="Create New Facebook Account" color="#00a400" /> */}
-            <TouchableOpacity style={styles.registerButton}>
-              <Text style={styles.buttonText}>Create New Facebook Account</Text>
+            <TouchableOpacity style={styles.registerButton} onPress={() => navigate('Setting')}>
+              <Text style={styles.buttonText}>{textNewAccount}</Text>
             </TouchableOpacity>
           </View>
         </View>
