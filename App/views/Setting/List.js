@@ -12,8 +12,8 @@ class List extends Component {
             PropTypes.array,
             PropTypes.number,
             PropTypes.shape({}),
-          ]).isRequired,
-      }
+        ]).isRequired,
+    }
     
     render() {
         const { listName, itemListStyle } = this.props;

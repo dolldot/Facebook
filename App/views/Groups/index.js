@@ -1,24 +1,57 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCamera, faComments, faUsers, faUserCircle, faFlag, faBell, faHome, faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 
-// Parent
 class Groups extends Component {
 
   constructor() {
     super();
     this.state = {
-      
+        menus: [
+        {
+            name: 'Home',
+            style: 'styles.menuItem',
+            iconName: faHome,
+            color: '#4267b2',
+            onPress: 'Home'
+        },
+        {
+            name: 'Groups',
+            style: 'styles.menuItem',
+            iconName: faUsers,
+            color: '#4267b2',
+            onPress: 'Groups'
+        },
+        {
+            name: 'User',
+            style: 'styles.menuItem',
+            iconName: faUserCircle,
+            color: '#4267b2',
+            onPress: 'Profile'
+        },
+        {
+            name: 'Pages',
+            style: 'styles.menuItem',
+            iconName: faFlag,
+            color: '#4267b2',
+            onPress: 'Pages'
+        },
+        {
+            name: 'Notification',
+            style: 'styles.menuItem',
+            iconName: faBell,
+            color: '#4267b2',
+            onPress: 'Notification'
+        },
+        {
+            name: 'Setting',
+            style: 'styles.menuItem',
+            iconName: faBars,
+            color: '#4267b2',
+            onPress: 'Setting'
+        }
+        ]
     }
   }
 
@@ -30,58 +63,10 @@ class Groups extends Component {
     return (
 
       <View style={styles.container}>
-        <View style={styles.header}>
-
-            <View style={styles.headerSearch}>
-                <View style={styles.searchCamera}>
-                    <FontAwesomeIcon icon={ faCamera } size={ 25 } color={'white'} />
-                </View>
-                <View style={styles.searchInput}>
-                    <FontAwesomeIcon icon={ faSearch } size={ 15 } color={'white'} />
-                    <TextInput style={styles.textInput} placeholder="Search" placeholderTextColor="#a1b3d9"/>
-                </View>
-                <View style={styles.searchChat}>
-                    <FontAwesomeIcon icon={ faComments } size={ 25 } color={'white'} />
-                </View>
-            </View>
-
-            <View style={styles.headerMenu}>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Home')}>
-                        <FontAwesomeIcon icon={ faHome } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Groups')}>
-                        <FontAwesomeIcon icon={ faUsers } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Profile')}>
-                        <FontAwesomeIcon icon={ faUserCircle } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Pages')}>
-                        <FontAwesomeIcon icon={ faFlag } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Notification')}>
-                        <FontAwesomeIcon icon={ faBell } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Setting')}>
-                        <FontAwesomeIcon icon={ faBars } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
 
         <View style={styles.content}>
             <ScrollView>
-                <Text>Groups Page</Text>
+                <Text>Notification Page</Text>
             </ScrollView>
         </View>
       </View>
@@ -132,6 +117,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderColor: '#c6c7cc',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20
     },
     menuItem: {
         justifyContent: 'center',

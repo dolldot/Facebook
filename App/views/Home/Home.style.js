@@ -1,39 +1,8 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity} from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCamera, faComments, faUsers, faUserCircle, faFlag, faBell, faHome, faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { StyleSheet } from 'react-native';
 
-class Profile extends Component {
-
-  constructor() {
-    super();
-    this.state = {
-        
-    }
-  }
-
-
-  render() {
-
-    return (
-
-      <View style={styles.container}>
-
-        <View style={styles.content}>
-            <ScrollView>
-                <Text>Notification Page</Text>
-            </ScrollView>
-        </View>
-      </View>
-    )
-  }
-}
-
-export default Profile;
-
-const styles = StyleSheet.create({
+export default StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 8,
         backgroundColor: '#dcdee3'
     },
     header: {
@@ -84,7 +53,40 @@ const styles = StyleSheet.create({
     },
     content: {
         flex: 9,
+    },
+    story: {
+        marginTop: 15,
+        flex: 4,
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        padding: 15
+    },
+
+    // CreatePost
+    createPost: {
+        backgroundColor: 'white',
+        flex: 1,
+        flexDirection: 'row',
+        padding: 10
+    },
+    searchCamera: {
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
-});
+    postField: {
+        flex: 4
+    },
+    searchChat: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    postInput: {
+        borderWidth: 1,
+        borderRadius: 50,
+        borderColor: '#ccd0d5',
+        paddingLeft: 20
+    },
+
+})

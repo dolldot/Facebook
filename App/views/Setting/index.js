@@ -1,24 +1,15 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCamera, faComments, faUsers, faUserCircle, faFlag, faBell, faHome, faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faUserCircle, faFlag, faBell, faHome, faBars } from '@fortawesome/free-solid-svg-icons';
 import List from "./List";
 
-// Parent
 class Setting extends Component {
 
   constructor() {
     super();
     this.state = {
+        
       textItems: [
           'Bareksa Fund Academy - Belajar Reksadana Online',
           'Friends',
@@ -44,99 +35,47 @@ class Setting extends Component {
 
 
   render() {
-    
-    const { navigate } = this.props.navigation;
 
     return (
 
       <View style={styles.container}>
-        <View style={styles.header}>
-
-            <View style={styles.headerSearch}>
-                <View style={styles.searchCamera}>
-                    <FontAwesomeIcon icon={ faCamera } size={ 25 } color={'white'} />
-                </View>
-                <View style={styles.searchInput}>
-                    <FontAwesomeIcon icon={ faSearch } size={ 15 } color={'white'} />
-                    <TextInput style={styles.textInput} placeholder="Search" placeholderTextColor="#a1b3d9"/>
-                </View>
-                <View style={styles.searchChat}>
-                    <FontAwesomeIcon icon={ faComments } size={ 25 } color={'white'} />
-                </View>
-            </View>
-
-            <View style={styles.headerMenu}>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Home')}>
-                        <FontAwesomeIcon icon={ faHome } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Groups')}>
-                        <FontAwesomeIcon icon={ faUsers } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Profile')}>
-                        <FontAwesomeIcon icon={ faUserCircle } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Pages')}>
-                        <FontAwesomeIcon icon={ faFlag } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Notification')}>
-                        <FontAwesomeIcon icon={ faBell } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.menuItem}>
-                    <TouchableOpacity onPress={() => navigate('Setting')}>
-                        <FontAwesomeIcon icon={ faBars } size={ 25 } color={'#4267b2'} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
 
         <View style={styles.content}>
             <ScrollView>
-            <View style={styles.topList}>
-                <View style={styles.itemList}>
-                    <View style={styles.itemIcon}>
-                        <FontAwesomeIcon icon={ faUserCircle } size={ 50 } color={'black'} />
+                <View style={styles.topList}>
+                    <View style={styles.itemList}>
+                        <View style={styles.itemIcon}>
+                            <FontAwesomeIcon icon={ faUserCircle } size={ 50 } color={'black'} />
+                        </View>
+                        <View style={styles.itemText}>
+                            <Text style={{color: 'black'}}>Aliyul Ajis</Text>
+                            <Text>View your profile</Text>
+                        </View>
                     </View>
-                    <View style={styles.itemText}>
-                        <Text style={{color: 'black'}}>Aliyul Ajis</Text>
-                        <Text>View your profile</Text>
+                    <View style={styles.itemList}>
+                        <View style={styles.itemIcon}>
+                            <FontAwesomeIcon icon={ faUserCircle } size={ 50 } color={'black'} />
+                        </View>
+                        <View style={styles.itemText}>
+                            <Text style={{color: 'black'}}>Arsenal Indonesia</Text>
+                            <Text>3 new</Text>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.itemList}>
-                    <View style={styles.itemIcon}>
-                        <FontAwesomeIcon icon={ faUserCircle } size={ 50 } color={'black'} />
-                    </View>
-                    <View style={styles.itemText}>
-                        <Text style={{color: 'black'}}>Arsenal Indonesia</Text>
-                        <Text>3 new</Text>
-                    </View>
+                <View style={styles.bottomList}>
+                    <FlatList
+                        data={this.state.textItems}
+                        renderItem={ ({item}) => (
+                        <List itemListStyle={styles.itemList} listName={item} />
+                        )} 
+                        keyExtractor={item => item} />
+                    <FlatList
+                        data={this.state.textBottom}
+                        renderItem={ ({item}) => (
+                            <List itemListStyle={styles.itemBottom} listName={item} />
+                        )}
+                        keyExtractor={item => item} />
                 </View>
-            </View>
-            <View style={styles.bottomList}>
-                <FlatList
-                    data={this.state.textItems}
-                    renderItem={ ({item}) => (
-                      <List itemListStyle={styles.itemList} listName={item} />
-                    )} 
-                    keyExtractor={item => item}
-                  />
-                  <FlatList
-                    data={this.state.textBottom}
-                    renderItem={ ({item}) => (
-                        <List itemListStyle={styles.itemBottom} listName={item} />
-                    )}
-                    keyExtractor={item => item}
-                />
-            </View>
             </ScrollView>
         </View>
       </View>
@@ -187,6 +126,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderBottomWidth: 1,
         borderColor: '#c6c7cc',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingLeft: 20,
+        paddingRight: 20
     },
     menuItem: {
         justifyContent: 'center',

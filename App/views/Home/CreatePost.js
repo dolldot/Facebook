@@ -1,55 +1,39 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, TextInput } from 'react-native';
+import { View, TextInput } from 'react-native';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUserCircle, faImages } from '@fortawesome/free-solid-svg-icons';
 
 class CreatePost extends Component {
 
-    render() {
+  static propTypes = {
+      containStyle: PropTypes.any.isRequired,
+      pictStyle: PropTypes.any.isRequired,
+      fieldStyle: PropTypes.any.isRequired,
+      pictsStyle: PropTypes.any.isRequired,
+      inputStyle: PropTypes.any.isRequired
+  }
 
-        return (
-            <View style={styles.createPost}>
-                <View style={styles.searchCamera}>
-                    <FontAwesomeIcon icon={ faUserCircle } size={ 40 } color={'black'} />
-                </View>
-                <View style={styles.postField}>
-                    <TextInput style={styles.postInput} placeholder="What's on your mind?"/>
-                </View>
-                <View style={styles.searchChat}>
-                    <FontAwesomeIcon icon={ faImages } size={ 40 } color={'black'} />
-                </View>
-            </View>
-        )
-    }
+  render() {
+
+    const { containStyle, pictStyle, fieldStyle, pictsStyle, inputStyle } = this.props;
+
+      return (
+          <View style={containStyle}>
+              <View style={pictStyle}>
+                  <FontAwesomeIcon icon={ faUserCircle } size={ 40 } color={'black'} />
+              </View>
+              <View style={fieldStyle}>
+                  <TextInput style={inputStyle} placeholder="What's on your mind?"/>
+              </View>
+              <View style={pictsStyle}>
+                  <FontAwesomeIcon icon={ faImages } size={ 40 } color={'black'} />
+              </View>
+          </View>
+      )
+
+      
+  }
 }
 
 export default CreatePost;
-
-const styles = StyleSheet.create({
-    searchCamera: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    postField: {
-      flex: 4
-    },
-    searchChat: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    postInput: {
-      borderWidth: 1,
-      borderRadius: 50,
-      borderColor: '#ccd0d5',
-      paddingLeft: 20
-    },
-  
-    createPost: {
-      backgroundColor: 'white',
-      flex: 1,
-      flexDirection: 'row',
-      padding: 10
-    },
-});

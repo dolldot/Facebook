@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from "react";
-import Routes from './Routes';
+import Routes from './Router';
 
 
 const App = () => <Routes/>

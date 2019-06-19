@@ -1,12 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Home from "./App/views/Home";
 import Login from "./App/views/Login";
