@@ -1,22 +1,22 @@
 import React from "react";
 import { Header } from "react-navigation";
 import { View, TextInput, StyleSheet } from "react-native";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCamera, faComments, faSearch } from '@fortawesome/free-solid-svg-icons';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const CustomHeader = props => {
   return (
 
     <View style={styles.headerSearch}>
         <View style={styles.searchCamera}>
-            <FontAwesomeIcon icon={ faCamera } size={ 25 } color={'white'} />
+            <Entypo name="camera" size={30} color="white" />
         </View>
         <View style={styles.searchInput}>
-            <FontAwesomeIcon icon={ faSearch } size={ 15 } color={'white'} />
+            <FontAwesome5 name="search" size={15} color="white" />
             <TextInput style={styles.textInput} placeholder="Search" placeholderTextColor="#a1b3d9"/>
         </View>
         <View style={styles.searchChat}>
-            <FontAwesomeIcon icon={ faComments } size={ 25 } color={'white'} />
+            <FontAwesome5 name="facebook-messenger" size={30} color="white" />
         </View>
         <Header {...props} />
     </View>
@@ -49,4 +49,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    textInput: {
+        color: 'white'
+    }
 })

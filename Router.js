@@ -11,6 +11,7 @@ import Setting from "./App/views/Setting";
 import CustomHeader from "./App/views/Base/CustomHeader";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 const AppNavigator = createMaterialTopTabNavigator(
   {
@@ -18,7 +19,7 @@ const AppNavigator = createMaterialTopTabNavigator(
       screen: Home,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-            <Icon name="home" size={20} color="#4267b2" />
+          <Entypo name="newsletter" size={30} color="#4267b2" />
         )
       },
     },
@@ -34,7 +35,7 @@ const AppNavigator = createMaterialTopTabNavigator(
         screen: Profile,
         navigationOptions: {
           tabBarIcon: ({ tintColor }) => (
-              <Icon name="user-circle" size={20} color="#4267b2" />
+              <Icon name="user-circle-o" size={25} color="#4267b2" />
           )
         },
     },
@@ -42,7 +43,7 @@ const AppNavigator = createMaterialTopTabNavigator(
       screen: Pages,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-            <Icon name="flag" size={20} color="#4267b2" />
+            <Icon name="flag" size={25} color="#4267b2" />
         )
       },
     },
@@ -58,7 +59,7 @@ const AppNavigator = createMaterialTopTabNavigator(
         screen: Setting,
         navigationOptions: {
           tabBarIcon: ({ tintColor }) => (
-              <Icon name="bars" size={20} color="#4267b2" />
+              <Icon name="bars" size={25} color="#4267b2" />
           )
         },
     },
@@ -75,7 +76,7 @@ const AppNavigator = createMaterialTopTabNavigator(
         style: {
             backgroundColor: 'white',
             elevation: 0,
-            borderBottomColor: '#dddfe2',
+            borderBottomColor: '#c6c7cc',
             borderBottomWidth: 1
         }
     }
@@ -94,7 +95,6 @@ const WatchRoute = createStackNavigator({
     initialRouteName: "Login",
     defaultNavigationOptions: {
         header: props => <CustomHeader {...props} />,
-        title: "FACEBOOK",
         headerStyle: {        
             backgroundColor: "transparent",
             color: 'blue'

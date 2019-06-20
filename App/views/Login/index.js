@@ -71,7 +71,7 @@ class Login extends Component {
               text={textLogin}
               textStyle={styles.submitText}
               buttonStyle={styles.textSubmit}
-              onPress={() => navigate('Home')} />
+              onPress={() => navigate('Notification')} />
               
             <Text style={styles.bottomInfo}>{textForgot}</Text>
           </View>

@@ -5,61 +5,20 @@ export default StyleSheet.create({
         flex: 8,
         backgroundColor: '#dcdee3'
     },
-    header: {
-        flex: 2,
-        backgroundColor: '#4267b2'
-    },
-    headerSearch: {
-        flex: 1,
-        flexDirection: 'row',
-        paddingBottom: 5
-    },
-    searchCamera: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    searchInput: {
-        flex: 4,
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderColor: '#8da8d3',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    searchChat: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textInput: {
-        flex: 1,
-    },
-    headerMenu: {
-        backgroundColor: 'white',
-        flex: 1,
-        flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderColor: '#c6c7cc',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    menuItem: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        flex: 1,
-    },
+
+    // content section
     content: {
         flex: 9,
     },
+
+    // story section
     story: {
-        marginTop: 15,
+        marginTop: 12,
         flex: 4,
         backgroundColor: 'white',
         flexDirection: 'row',
-        padding: 15
+        paddingTop: 15,
+        paddingBottom: 15
     },
 
     // CreatePost
@@ -67,20 +26,28 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         flex: 1,
         flexDirection: 'row',
-        padding: 10
+        padding: 10,
     },
     searchCamera: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'flex-end',
+        backgroundColor: 'blue',
+        borderRadius: 50,
+        height: 45,
+        overflow: 'hidden'
     },
     postField: {
-        flex: 4
+        flex: 5,
+        marginLeft: 5,
+        marginRight: 5,
+        height: 45
     },
     searchChat: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: 45
     },
     postInput: {
         borderWidth: 1,

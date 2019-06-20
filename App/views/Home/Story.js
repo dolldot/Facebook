@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-class Status extends Component {
+class Story extends Component {
 
     static propTypes = {
         storyName: PropTypes.string.isRequired,
+        storySrc: PropTypes.any.isRequired,
+        storyIcon: PropTypes.any.isRequired,
       }
     
     render() {
-        const { storyName } = this.props;
+        const { storyName, storySrc, storyIcon } = this.props;
 
         return (
             <View style={styles.storyList}>
                 <View style={styles.storyBox}>
-                    <ImageBackground source={require('../../assets/images/banner.png')} style={{width: '100%', height: '100%'}}>
+                    <ImageBackground source={storySrc} style={{width: '100%', height: '100%'}}>
                         <View style={styles.storyIcon}>
-                            <FontAwesomeIcon icon={ faUserCircle } size={ 40 } color={'#4267b2'} />
+                            <ImageBackground source={storyIcon} style={{width: '100%', height: '100%'}} />
                         </View>
                         <View style={styles.storyName}>
                             <Text style={{color: 'white'}}>{storyName}</Text>
@@ -30,43 +30,36 @@ class Status extends Component {
     }
 }
 
-export default Status;
+export default Story;
 
 const styles = StyleSheet.create({
-    story: {
-      marginTop: 15,
-      flex: 4,
-      backgroundColor: 'white',
-      flexDirection: 'row',
-      padding: 15
-    },
-    storyAdd: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingRight: 10
-    },
     storyList: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      paddingRight: 10,
+      paddingLeft: 5
     },
     storyBox: {
       flex: 1,
       width: 100, 
-      height: 175, 
+      height: 180, 
       backgroundColor: 'white',
       borderRadius: 15,
       overflow: 'hidden'
     },
     storyIcon: {
       flex: 1,
-      paddingTop: 10,
-      paddingLeft: 10
+      marginTop: 10,
+      marginLeft: 10,
+      backgroundColor: 'black',
+      borderColor: '#1877f2',
+      borderWidth: 2,
+      borderRadius: 50,
+      width: 42,
+      overflow: 'hidden'
     },
     storyName: {
-      flex: 1,
+      flex: 3,
       justifyContent: 'flex-end',
       paddingLeft: 10,
       paddingBottom: 10

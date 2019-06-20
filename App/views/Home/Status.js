@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faUserCircle, faCommentAlt, faThumbsUp, faHeart } from '@fortawesome/free-solid-svg-icons';
+
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 class Status extends Component {
 
@@ -11,48 +16,66 @@ class Status extends Component {
         statusTime: PropTypes.string.isRequired,
         statusContent: PropTypes.string.isRequired,
         statusLikes: PropTypes.number.isRequired,
-        statusComments: PropTypes.string.isRequired,
+        statusComments: PropTypes.number.isRequired,
+        statusDp: PropTypes.any.isRequired
       }
     
-    // statusName, statusTime, statusContent, statusLikes, statusComments
-    
     render() {
-        const { statusName, statusTime, statusContent, statusLikes, statusComments } = this.props;
+        const { statusName, statusTime, statusContent, statusLikes, statusComments, statusDp } = this.props;
 
         return (
           <View style={styles.status}>
             <View style={styles.statusList}>
+
               <View style={styles.statusTitle}>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                  <FontAwesomeIcon icon={ faUserCircle } size={ 40 } color={'black'} />
+                <View style={styles.statusDp}>
+                  <ImageBackground source={statusDp} style={{width: '100%', height: '100%'}} />
                 </View>
-                <View style={{flex: 4}}>
+                <View style={styles.statusName}>
                   <Text style={{fontWeight: 'bold', color: 'black'}}>{statusName}</Text>
                   <Text>{statusTime}</Text>
                 </View>
-                <View style={{flex: 1, alignItems: 'center'}}>
-                  <Text style={{fontWeight: 'bold'}}>•••</Text>
+                <View style={styles.statusMore}>
+                  <MaterialIcon name="more-horiz" size={20} color="black" />
                 </View>
               </View>
+
               <View style={styles.statusContent}>
-                <Text style={{padding: 10}}>{statusContent}</Text>
+                <Text style={{paddingTop: 10, paddingBottom: 10}}>{statusContent}</Text>
               </View>
+
               <View style={styles.statusReact}>
-                <View style={{flex: 1, justifyContent: 'flex-start', alignItems: 'center', flexDirection: 'row', paddingLeft: 10}}>
-                  <FontAwesomeIcon icon={ faHeart } size={ 15 } color={'blue'} /><Text style={{paddingLeft: 5}}>{statusLikes}</Text>
+                <View style={styles.reactLike}>
+                  <MaterialCommunityIcons name="heart-circle" size={20} color="red" />
+                  <MaterialCommunityIcons name="emoticon-excited-outline" size={20} color="#f8ae3e" />
+                  <Text style={{paddingLeft: 5}}>{statusLikes}</Text>
                 </View>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-end', paddingRight: 10}}>
-                  <Text>{statusComments}</Text>
+                <View style={styles.reactComment}>
+                  <Text>{statusComments} comments</Text>
                 </View>
               </View>
+
               <View style={styles.statusAction}>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                  <FontAwesomeIcon icon={ faThumbsUp } size={ 20 } color={'#606770'} /><Text style={{paddingLeft: 10}}>Like</Text>
+                <TouchableOpacity>
+                <View style={styles.actionLike}>
+                  <AntDesign name="like2" size={20} color="#606770" />
+                  <Text style={{paddingLeft: 5}}>Like</Text>
                 </View>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-                  <FontAwesomeIcon icon={ faCommentAlt } size={ 20 } color={'#606770'} /><Text style={{paddingLeft: 10}}>Comment</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                <View style={styles.actionComment}>
+                  <FontAwesome5 name="comment-alt" size={20} color="#606770" />
+                  <Text style={{paddingLeft: 5}}>Comment</Text>
                 </View>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                <View style={styles.actionShare}>
+                  <MaterialCommunityIcons name="share" size={20} color="#606770" />
+                  <Text style={{paddingLeft: 5}}>Share</Text>
+                </View>
+                </TouchableOpacity>
               </View>
+
             </View>
           </View>
         )
@@ -63,38 +86,86 @@ export default Status;
 
 const styles = StyleSheet.create({
   
-    status: {
-      flex: 5,
-      marginTop: 15
-    },
-    statusList: {
-      flex: 1,
-      backgroundColor: 'white',
-      paddingLeft: 10,
-      paddingRight: 10,
-      paddingTop: 10,
-      paddingBottom: 5
-    },
-    statusTitle: {
-      flex: 1,
-      flexDirection: 'row',
-    },
-    statusContent: {
-      flex: 2,
-      paddingTop: 10,
-      paddingBottom: 10
-    },
-    statusReact: {
-      flex: 1,
-      flexDirection: 'row',
-      paddingTop: 10,
-      paddingBottom: 10
-    },
-    statusAction: {
-      flex: 1,
-      flexDirection: 'row',
-      borderTopWidth: 1,
-      borderColor: '#dddfe2',
-      padding: 10
-    },
+  status: {
+    flex: 5,
+    marginTop: 12
+  },
+  statusList: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 5
+  },
+  statusTitle: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  statusContent: {
+    flex: 2,
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  statusReact: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  reactLike: {
+    flex: 1, 
+    justifyContent: 'flex-start', 
+    alignItems: 'center', 
+    flexDirection: 'row', 
+  },
+  reactComment: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'flex-end',
+    
+  },
+  statusAction: {
+    flex: 1,
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderColor: '#dddfe2',
+    paddingTop: 10,
+    paddingBottom: 10,
+    justifyContent: 'space-evenly'
+  },
+  actionLike: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  actionComment: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    flexDirection: 'row', 
+  },
+  actionShare: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    flexDirection: 'row', 
+  },
+  statusDp: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: 'blue',
+    borderRadius: 50,
+    overflow: 'hidden'
+  },
+  statusName: {
+    flex: 7,
+    paddingLeft: 10
+  },
+  statusMore: {
+    flex: 1, 
+    alignItems: 'center'
+  }
 });
