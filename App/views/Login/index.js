@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { View, TextInput, Text, ImageBackground, ScrollView, TouchableHighlight } from 'react-native';
-import styles from "./Login.style";
+import { View, StyleSheet, TextInput, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { Grid, Section, Block } from 'react-native-responsive-layout';
 import Hr from "react-native-hr-component";
 import Button from "../../components/Button";
 import Modal from "./Modal";
 
-// Parent
 class Login extends Component {
 
   constructor() {
@@ -28,7 +27,6 @@ class Login extends Component {
     })
   }
 
-
   render() {
 
     const { navigate } = this.props.navigation;
@@ -40,55 +38,112 @@ class Login extends Component {
 
     return (
 
-      <View style={styles.container}>
-
+      <Grid stretchable scrollable>
         <Modal
           text="CANCEL"
           visible={this.state.modalVisible}
           onPress={() => {this.setModalVisible(!this.state.modalVisible)}} />
-
-        <View style={styles.sectionOne}>
-          <ImageBackground source={require('../../assets/images/banner.png')} style={styles.banner} >
-            <View style={styles.header}>
-                <Text style={styles.heading}>f</Text>
-            </View>
-          </ImageBackground>
-        </View>
-        
-        <View style={[styles.sectionTwo, this.state.background ? {backgroundColor: 'blue'} : {backgroundColor: 'white'}]}>
-          <TouchableHighlight onPress={() => {
-                this.setModalVisible(true)
-              }}>
-            <Text style={styles.topInfo}>English  •  Indonesia  •  <Text style={{color: '#385898'}}>More...</Text>
-            </Text>
-          </TouchableHighlight>
           
-          <View styles={styles.sectionForm}>
-            <TextInput style={styles.textInput} placeholder={textUsername}/>
-            <TextInput style={styles.textInput} secureTextEntry={true} placeholder={textPassword}/>
+        <Section>
+          <Block>
+            <View style={styles.topContent}>
+              <ImageBackground source={require('../../assets/images/banner.jpg')} style={{width: '100%', height: '100%'}} />
+            </View>
+          </Block>
+        </Section>
 
-            <Button
-              text={textLogin}
-              textStyle={styles.submitText}
-              buttonStyle={styles.textSubmit}
-              onPress={() => navigate('Notification')} />
-              
-            <Text style={styles.bottomInfo}>{textForgot}</Text>
-          </View>
+        <Section stretch>
+          <Block size="stretch">
+            <View style={styles.centerContent} >
+                <Text style={styles.langText}>English  •  Indonesia  •  <Text onPress={() => {this.setModalVisible(true)}} style={{color: '#385898'}}>More...</Text></Text>
+                <TextInput style={styles.textInput} placeholder={textUsername}/>
+                <TextInput style={styles.textInput} secureTextEntry={true} placeholder={textPassword}/>
+                <Button
+                  text={textLogin}
+                  textStyle={styles.loginText}
+                  buttonStyle={styles.loginButton}
+                  onPress={() => navigate('Home')} />
+                <Text style={styles.forgotText}>{textForgot}</Text>
+            </View>
+          </Block>
+        </Section>
 
-          <Hr lineColor="#eee" width={1} text="OR" style={{color: 'black'}}/>
-
-          <View style={styles.sectionFooter}>
-            <Button 
-              text={textNewAccount} 
-              textStyle={styles.buttonText}
-              buttonStyle={styles.registerButton}
-              onPress={() => {this.changeBackground(!this.state.background)}} />
-          </View>
-        </View>
-      </View>
+        <Section>
+          <Block>
+            <View style={styles.bottomContent} >
+              <Hr lineColor="#eee" width={1} text="OR" style={{color: 'black'}}/>
+              <View style={styles.registerBox}>
+              <TouchableOpacity style={styles.registerButton}>
+                  <Text style={styles.registerText}>{textNewAccount}</Text>
+              </TouchableOpacity>
+              </View>
+            </View>
+          </Block>
+        </Section>
+      </Grid>
     )
   }
 }
 
 export default Login;
+
+
+const styles = StyleSheet.create({
+  topContent: {
+    height: 200 , 
+    backgroundColor: 'orange'
+  },
+  centerContent: {
+    justifyContent: 'center', 
+    flex: 1, 
+    paddingTop: 20, 
+    paddingRight: 30, 
+    paddingLeft: 30
+  },
+  langText: {
+    alignSelf: 'center', 
+    marginBottom: 25
+  },
+  forgotText: {
+    fontWeight: 'bold', 
+    alignSelf: 'center', 
+    marginTop: 20, 
+    marginBottom: 20,
+    color: '#385898'
+  },
+  loginText: {
+    fontWeight: 'bold', 
+    color: '#9daccb'
+  },
+  registerText: {
+    fontWeight: 'bold', 
+    color: 'white'
+  },
+  textInput: {
+    borderBottomWidth: 1, 
+    borderColor: '#eee', 
+    marginBottom: 10
+  },
+  loginButton: {
+    backgroundColor: '#4e69a2', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: 10, 
+    borderRadius: 5
+  },
+  registerBox: {
+    paddingLeft: 50, 
+    paddingRight: 50, 
+    marginTop: 30
+  },
+  registerButton: {
+    backgroundColor: 'orange', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    padding: 10, 
+    borderRadius: 5
+  },
+  bottomContent: {
+    height: 130
+  }
+});

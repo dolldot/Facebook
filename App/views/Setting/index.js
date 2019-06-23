@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, FlatList, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableHighlight, FlatList, ImageBackground } from 'react-native';
 import List from "./List";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -83,6 +83,12 @@ class Setting extends Component {
     }
   }
 
+  changeBack = () => {
+    this.setState({
+        background: true,
+    })
+}
+
 
   render() {
 
@@ -93,7 +99,7 @@ class Setting extends Component {
         <View style={styles.content}>
             <ScrollView>
                 <View style={styles.topList}>
-                  <TouchableOpacity>
+                  <TouchableHighlight underlayColor="rgba(225,225,225,0.3)" onPress={() => this.changeBack}>
                     <View style={styles.itemList}>
                         <View style={styles.iconDp}>
                             <ImageBackground source={require('../../assets/images/story.jpg')} style={{width: '100%', height: '100%'}} />
@@ -103,8 +109,8 @@ class Setting extends Component {
                             <Text>View your profile</Text>
                         </View>
                     </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
+                  </TouchableHighlight>
+                  <TouchableHighlight underlayColor="rgba(225,225,225,0.2)" onPress={() => this.changeBack}>
                     <View style={styles.itemList}>
                         <View style={styles.iconDp}>
                           <ImageBackground source={require('../../assets/images/gooner.jpg')} style={{width: '100%', height: '100%'}} />
@@ -114,7 +120,7 @@ class Setting extends Component {
                             <Text>3 new</Text>
                         </View>
                     </View>
-                  </TouchableOpacity>
+                  </TouchableHighlight>
                 </View>
                 <View style={styles.bottomList}>
                     <FlatList

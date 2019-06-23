@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Image, TouchableOpacity, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -17,16 +17,19 @@ class Status extends Component {
         statusContent: PropTypes.string.isRequired,
         statusLikes: PropTypes.number.isRequired,
         statusComments: PropTypes.number.isRequired,
-        statusDp: PropTypes.any.isRequired
+        statusDp: PropTypes.any.isRequired,
+        likeAction: PropTypes.func.isRequired,
+        statusPhoto: PropTypes.any
       }
     
     render() {
-        const { statusName, statusTime, statusContent, statusLikes, statusComments, statusDp } = this.props;
+        const { statusName, statusTime, statusContent, statusLikes, statusComments, statusDp, likeAction, statusPhoto } = this.props;
 
         return (
           <View style={styles.status}>
             <View style={styles.statusList}>
 
+            <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
               <View style={styles.statusTitle}>
                 <View style={styles.statusDp}>
                   <ImageBackground source={statusDp} style={{width: '100%', height: '100%'}} />
@@ -39,41 +42,47 @@ class Status extends Component {
                   <MaterialIcon name="more-horiz" size={20} color="black" />
                 </View>
               </View>
-
+            </TouchableHighlight>
+            <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
               <View style={styles.statusContent}>
-                <Text style={{paddingTop: 10, paddingBottom: 10}}>{statusContent}</Text>
+                <View>
+                  {/* <Image source={statusPhoto} style={{width: '100%', height: '50%'}} /> */}
+                  <Text style={{paddingTop: 10, paddingBottom: 10, color: 'black'}}>{statusContent}</Text>
+                </View>
               </View>
-
+            </TouchableHighlight>
+            <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
               <View style={styles.statusReact}>
                 <View style={styles.reactLike}>
                   <MaterialCommunityIcons name="heart-circle" size={20} color="red" />
                   <MaterialCommunityIcons name="emoticon-excited-outline" size={20} color="#f8ae3e" />
-                  <Text style={{paddingLeft: 5}}>{statusLikes}</Text>
+                  <Text style={{paddingLeft: 5, color: 'black'}}>{statusLikes}</Text>
                 </View>
                 <View style={styles.reactComment}>
-                  <Text>{statusComments} comments</Text>
+                  <Text style={{color: 'black'}}>{statusComments} comments</Text>
                 </View>
               </View>
+            </TouchableHighlight>
 
               <View style={styles.statusAction}>
-                <TouchableOpacity>
+                <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={likeAction}>
                 <View style={styles.actionLike}>
                   <AntDesign name="like2" size={20} color="#606770" />
                   <Text style={{paddingLeft: 5}}>Like</Text>
                 </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
+                </TouchableHighlight>
+                <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
                 <View style={styles.actionComment}>
                   <FontAwesome5 name="comment-alt" size={20} color="#606770" />
                   <Text style={{paddingLeft: 5}}>Comment</Text>
                 </View>
-                </TouchableOpacity>
-                <TouchableOpacity>
+                </TouchableHighlight>
+                <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
                 <View style={styles.actionShare}>
                   <MaterialCommunityIcons name="share" size={20} color="#606770" />
                   <Text style={{paddingLeft: 5}}>Share</Text>
                 </View>
-                </TouchableOpacity>
+                </TouchableHighlight>
               </View>
 
             </View>
@@ -96,7 +105,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     paddingTop: 10,
-    paddingBottom: 5
   },
   statusTitle: {
     flex: 1,
@@ -105,7 +113,7 @@ const styles = StyleSheet.create({
   statusContent: {
     flex: 2,
     paddingTop: 10,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   statusReact: {
     flex: 1,
@@ -130,27 +138,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopWidth: 1,
     borderColor: '#dddfe2',
-    paddingTop: 10,
-    paddingBottom: 10,
-    justifyContent: 'space-evenly'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   actionLike: {
-    flex: 1, 
+    flex: 1,
+    paddingTop: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 10,
     justifyContent: 'center', 
     alignItems: 'center',
     flexDirection: 'row',
   },
   actionComment: {
-    flex: 1, 
+    flex: 1,
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 10,
     justifyContent: 'center', 
     alignItems: 'center',
-    flexDirection: 'row', 
+    flexDirection: 'row',
   },
   actionShare: {
-    flex: 1, 
+    flex: 1,
+    paddingTop: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 10,
     justifyContent: 'center', 
     alignItems: 'center',
-    flexDirection: 'row', 
+    flexDirection: 'row',
   },
   statusDp: {
     flex: 1, 

@@ -54,6 +54,7 @@ class Home extends Component {
         },
         {
           icon: require('../../assets/images/jamesbond.jpg'),
+          photo: require('../../assets/images/jamesbond.jpg'),
           name: 'James Bond',
           time: '1 hours ago',
           content: "Don't take my girl John Wick!!!",
@@ -70,9 +71,10 @@ class Home extends Component {
         },
         {
           icon: require('../../assets/images/bean.jpg'),
+          photo: require('../../assets/images/bean.jpg'),
           name: 'Mr. Bean',
           time: '1 hours ago',
-          content: "bla bla bla bla bla bla",
+          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           likes: 0,
           comments: 0
         }
@@ -80,10 +82,10 @@ class Home extends Component {
     }
   }
 
-  plusLike = () => {
-    this.setState({
-      likes: this.state.users[0].post[0].likes + 1
-    })
+  plusLike = (index) => {
+    var posts = [...this.state.posts]
+    posts[index] = {...posts[index], likes: this.state.posts[index].likes += 1};
+    this.setState({posts})
   }
 
   render() {
@@ -118,14 +120,15 @@ class Home extends Component {
 
               <FlatList
                 data={this.state.posts}
-                renderItem={ ({item}) => (
+                renderItem={ ({item, index}) => (
                   <Status
                     statusName={item.name}
                     statusTime={item.time}
                     statusContent={item.content}
                     statusLikes={item.likes}
                     statusComments={item.comments}
-                    statusDp={item.icon} />
+                    statusDp={item.icon}
+                    likeAction={() => this.plusLike(index)} />
                 )} 
                 keyExtractor={item => item.name} />
 
