@@ -21,7 +21,7 @@ class CreatePost extends Component {
       return (
           <View style={containStyle}>
               <View style={pictStyle}>
-                <ImageBackground source={background} style={{width: '100%', height: '100%'}} />
+                <ImageBackground source={{uri: background}} style={{width: '100%', height: '100%'}} />
               </View>
               <View style={fieldStyle}>
                   <TextInput style={inputStyle} placeholder="What's on your mind?"/>

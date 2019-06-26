@@ -60,7 +60,11 @@ class Login extends Component {
     })
       .then(function (response) {
         var token = response.data.access_token;
+        var userId = response.data.User.id.toString();
+        // console.log("user: " + userId);
+        deviceStorage.saveItem("userid", userId);
         deviceStorage.saveItem("token", token);
+        
         navigate('App');
         
         console.log("Token dari axios :" + token);

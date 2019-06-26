@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, ScrollView} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Button from "../../components/Button";
-// import jwt from "jsonwebtoken";
 
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
@@ -17,6 +16,8 @@ class Home extends Component {
   constructor() {
     super();
     this.state = {
+      userId: '',
+      user: '',
       token: '',
       story: [],
       status: [],
@@ -24,21 +25,40 @@ class Home extends Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     const that = this;
-    const userToken = AsyncStorage.getItem('token');
-    that.setState({token: userToken});
-    // jwt.verify(that.state.token, 'kalem', function (err, decoded) {
-    //   console.log(decoded.id)
-    // })
+    try {
+      const value = await AsyncStorage.getItem('token');
+      if (value !== null) {
+        that.setState({token: value});
+        console.log("Token: " + that.state.token);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      const value = await AsyncStorage.getItem('userid');
+      if (value !== null) {
+        that.setState({userId: value});
+        console.log("userId: " + that.state.userId);
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-    // axios.get('http://192.168.22:3000/users')
-    // .then(function (response) {
-    //   var data = response.data;
-    //   that.setState({user: data});
-    // })
+    var url = 'http://192.168.0.22:3000/users/' + that.state.userId;
 
-    axios.get('http://192.168.0.22:3000/story')
+    axios.get(url, { headers: {"Authorization": `Bearer ${that.state.token}`}})
+    .then(function (response) {
+      var data = response.data;
+      that.setState({user: data});
+      console.log("User: " + data);
+    })
+    .catch(function (error) {
+      console.log("User Error: " + error)
+    })
+
+    axios.get('http://192.168.0.22:3000/story', { headers: {"Authorization": `Bearer ${that.state.token}`}})
     .then(function (response) {
       var data = response.data;
       that.setState({story: data});
@@ -71,7 +91,7 @@ class Home extends Component {
   }
 
   render() {
-    const { story, status } = this.state;
+    const { story, status, user } = this.state;
 
     return (
       
@@ -86,7 +106,7 @@ class Home extends Component {
                 fieldStyle={styles.postField}
                 pictsStyle={styles.searchChat}
                 inputStyle={styles.postInput}
-                background={require('../../assets/images/story.jpg')} />
+                background={user.avatar} />
 
               <Button
                 text={"Log out"}
@@ -111,7 +131,7 @@ class Home extends Component {
 
               <FlatList
                 data={status}
-                renderItem={ ({item, index}) => (
+                renderItem={ ({item}) => (
                     <Status
                       statusName={item.User.firstName + " " + item.User.lastName}
                       statusTime="30 minutes ago"
