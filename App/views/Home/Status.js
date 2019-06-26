@@ -12,18 +12,17 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 class Status extends Component {
 
     static propTypes = {
-        statusName: PropTypes.string.isRequired,
-        statusTime: PropTypes.string.isRequired,
-        statusContent: PropTypes.string.isRequired,
-        statusLikes: PropTypes.number.isRequired,
-        statusComments: PropTypes.number.isRequired,
+        statusName: PropTypes.any.isRequired,
+        statusTime: PropTypes.any.isRequired,
+        statusContent: PropTypes.any.isRequired,
+        statusLikes: PropTypes.any.isRequired,
+        statusComments: PropTypes.any.isRequired,
         statusDp: PropTypes.any.isRequired,
         likeAction: PropTypes.func.isRequired,
-        statusPhoto: PropTypes.any
       }
     
     render() {
-        const { statusName, statusTime, statusContent, statusLikes, statusComments, statusDp, likeAction, statusPhoto } = this.props;
+        const { statusName, statusTime, statusContent, statusLikes, statusComments, statusDp, likeAction } = this.props;
 
         return (
           <View style={styles.status}>
@@ -32,7 +31,7 @@ class Status extends Component {
             <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
               <View style={styles.statusTitle}>
                 <View style={styles.statusDp}>
-                  <ImageBackground source={statusDp} style={{width: '100%', height: '100%'}} />
+                  <ImageBackground source={{uri: statusDp}} style={{width: '100%', height: '100%'}} />
                 </View>
                 <View style={styles.statusName}>
                   <Text style={{fontWeight: 'bold', color: 'black'}}>{statusName}</Text>

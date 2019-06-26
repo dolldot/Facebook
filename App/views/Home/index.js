@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { View, ScrollView} from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import Button from "../../components/Button";
+// import jwt from "jsonwebtoken";
+
+import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 import CreatePost from './CreatePost';
 import Status from './Status';
@@ -9,77 +14,49 @@ import styles from './Home.style';
 
 class Home extends Component {
 
-  static navigationOptions = {
-    title: 'Home'
-  };
-
   constructor() {
     super();
     this.state = {
-      story: [
-        {
-          name: 'Add to story',
-          src: require('../../assets/images/story.jpg'),
-          icon: require('../../assets/images/plus.jpg')
-        },
-        {
-          name: 'John Wick',
-          src: require('../../assets/images/johnwick.jpg'),
-          icon: require('../../assets/images/johnwick.jpg')
-        },
-        {
-          name: 'James Bond',
-          src: require('../../assets/images/jamesbond.jpg'),
-          icon: require('../../assets/images/jamesbond.jpg')
-        },
-        {
-          name: 'Tony Stark',
-          src: require('../../assets/images/tony.jpg'),
-          icon: require('../../assets/images/tony.jpg')
-        },
-        {
-          name: 'Mr. Bean',
-          src: require('../../assets/images/bean.jpg'),
-          icon: require('../../assets/images/bean.jpg')
-        }
-      ],
-      posts: [
-        {
-          icon: require('../../assets/images/johnwick.jpg'),
-          name: 'John Wick',
-          time: '1 hours ago',
-          content: "Don't you dare kill my dog!!!",
-          likes: 10,
-          comments: 7
-        },
-        {
-          icon: require('../../assets/images/jamesbond.jpg'),
-          photo: require('../../assets/images/jamesbond.jpg'),
-          name: 'James Bond',
-          time: '1 hours ago',
-          content: "Don't take my girl John Wick!!!",
-          likes: 15,
-          comments: 11
-        },
-        {
-          icon: require('../../assets/images/tony.jpg'),
-          name: 'Tony Stark',
-          time: '1 hours ago',
-          content: "I Love You 3000",
-          likes: 999,
-          comments: 999
-        },
-        {
-          icon: require('../../assets/images/bean.jpg'),
-          photo: require('../../assets/images/bean.jpg'),
-          name: 'Mr. Bean',
-          time: '1 hours ago',
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          likes: 0,
-          comments: 0
-        }
-      ],
+      token: '',
+      story: [],
+      status: [],
+      
     }
+  }
+
+  componentDidMount() {
+    const that = this;
+    const userToken = AsyncStorage.getItem('token');
+    that.setState({token: userToken});
+    // jwt.verify(that.state.token, 'kalem', function (err, decoded) {
+    //   console.log(decoded.id)
+    // })
+
+    // axios.get('http://192.168.22:3000/users')
+    // .then(function (response) {
+    //   var data = response.data;
+    //   that.setState({user: data});
+    // })
+
+    axios.get('http://192.168.0.22:3000/story')
+    .then(function (response) {
+      var data = response.data;
+      that.setState({story: data});
+      console.log("Story: " + that.state.story);
+    })
+    .catch(function (error) {
+      console.log("Story Error: " + error)
+    })
+
+    axios.get('http://192.168.0.22:3000/posts', { headers: {"Authorization": `Bearer ${that.state.token}`}})
+    .then(function (response) {
+      var data = response.data;
+      that.setState({status: data});
+      console.log("Status: " + that.state.status);
+    })
+    .catch(function (error) {
+      console.log("Status Error: " + error)
+    })
   }
 
   plusLike = (index) => {
@@ -88,9 +65,17 @@ class Home extends Component {
     this.setState({posts})
   }
 
+  _signOutAsync = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate('Auth');
+  }
+
   render() {
+    const { story, status } = this.state;
 
     return (
+      
+
       <View style={styles.container}>
           <View style={styles.content}>
             <ScrollView>
@@ -103,34 +88,40 @@ class Home extends Component {
                 inputStyle={styles.postInput}
                 background={require('../../assets/images/story.jpg')} />
 
+              <Button
+                text={"Log out"}
+                textStyle={styles.loginText}
+                buttonStyle={styles.loginButton}
+                onPress={this._signOutAsync} />
+
               <View style={styles.story}>
                 <ScrollView horizontal={true}>
                   <FlatList
                     horizontal 
-                    data={this.state.story}
+                    data={story}
                     renderItem={ ({item}) => (
                       <Story 
-                        storyName={item.name} 
+                        storyName={item.User.firstName + " " + item.User.lastName} 
                         storySrc={item.src}
-                        storyIcon={item.icon} />
+                        storyIcon={item.User.avatar} />
                     )} 
-                    keyExtractor={item => item.name} />
+                    keyExtractor={item => item.id.toString()} />
                 </ScrollView>
               </View>
 
               <FlatList
-                data={this.state.posts}
+                data={status}
                 renderItem={ ({item, index}) => (
-                  <Status
-                    statusName={item.name}
-                    statusTime={item.time}
-                    statusContent={item.content}
-                    statusLikes={item.likes}
-                    statusComments={item.comments}
-                    statusDp={item.icon}
-                    likeAction={() => this.plusLike(index)} />
+                    <Status
+                      statusName={item.User.firstName + " " + item.User.lastName}
+                      statusTime="30 minutes ago"
+                      statusContent={item.content}
+                      statusLikes= {2}
+                      statusComments= {3}
+                      statusDp={item.User.avatar}
+                      likeAction={() => alert("wow")} />
                 )} 
-                keyExtractor={item => item.name} />
+                keyExtractor={item => item.id.toString()} />
 
             </ScrollView>
           </View>

@@ -4,6 +4,8 @@ import { Grid, Section, Block } from 'react-native-responsive-layout';
 import Hr from "react-native-hr-component";
 import Button from "../../components/Button";
 import Modal from "./Modal";
+import deviceStorage from '../../services/deviceStorage';
+import axios from 'axios';
 
 class Login extends Component {
 
@@ -12,7 +14,14 @@ class Login extends Component {
     this.state = {
       modalVisible: false,
       background: false,
+
+      email: '',
+      password: '',
+      error: '',
+      loading: false
     }
+
+    this.loginUser = this.loginUser.bind(this);
   }
 
   setModalVisible = (visible) => {
@@ -27,9 +36,47 @@ class Login extends Component {
     })
   }
 
+  pushEmail = (text) => {
+    this.setState({
+      email: text
+    })
+  }
+
+  pushPass = (text) => {
+    this.setState({
+      password: text
+    })
+  }
+
+  loginUser = () => {
+    const { navigate } = this.props.navigation;
+    const { email, password } = this.state;
+
+    this.setState({ error: '', loading: true });
+
+    axios.post('http://192.168.0.22:3000/users/login', {
+      email: email,
+      password: password
+    })
+      .then(function (response) {
+        var token = response.data.access_token;
+        deviceStorage.saveItem("token", token);
+        navigate('App');
+        
+        console.log("Token dari axios :" + token);
+        console.log("Email: " + email);
+        console.log("Password: " + password);
+      })
+      .catch(function (error) {
+        console.log("Bangke: " + error);
+      })
+    
+    // this.props.navigation.navigate('AuthLoading');
+  }
+
   render() {
 
-    const { navigate } = this.props.navigation;
+    
     const textUsername = 'Phone number or email';
     const textPassword = 'Password';
     const textLogin = 'Log in';
@@ -56,13 +103,13 @@ class Login extends Component {
           <Block size="stretch">
             <View style={styles.centerContent} >
                 <Text style={styles.langText}>English  •  Indonesia  •  <Text onPress={() => {this.setModalVisible(true)}} style={{color: '#385898'}}>More...</Text></Text>
-                <TextInput style={styles.textInput} placeholder={textUsername}/>
-                <TextInput style={styles.textInput} secureTextEntry={true} placeholder={textPassword}/>
+                <TextInput style={styles.textInput} onChangeText={this.pushEmail} value={this.state.email} placeholder={textUsername}/>
+                <TextInput style={styles.textInput} onChangeText={this.pushPass} value={this.state.password} secureTextEntry={true} placeholder={textPassword}/>
                 <Button
                   text={textLogin}
                   textStyle={styles.loginText}
                   buttonStyle={styles.loginButton}
-                  onPress={() => navigate('Home')} />
+                  onPress={this.loginUser} />
                 <Text style={styles.forgotText}>{textForgot}</Text>
             </View>
           </Block>

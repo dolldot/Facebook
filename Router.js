@@ -1,4 +1,4 @@
-import { createStackNavigator, createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 import React, { Component } from 'react';
 import Home from "./App/views/Home";
 import Login from "./App/views/Login";
@@ -7,13 +7,14 @@ import Groups from "./App/views/Groups";
 import Pages from "./App/views/Pages";
 import Notification from "./App/views/Notification";
 import Setting from "./App/views/Setting";
+import AuthLoadingScreen from "./App/views/Loading";
 
 import CustomHeader from "./App/views/Base/CustomHeader";
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const AppNavigator = createMaterialTopTabNavigator(
+const AppStack = createMaterialTopTabNavigator(
   {
     Home: {
       screen: Home,
@@ -83,16 +84,38 @@ const AppNavigator = createMaterialTopTabNavigator(
   }
 );
 
-const WatchRoute = createStackNavigator({
-    watchTopTabNavigator: AppNavigator,
-    Login: {
-        screen: Login,
-        navigationOptions: {
-            header: null
-        }
-    },
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null
+    }
+  }
+})
+
+// const WatchRoute = createStackNavigator({
+//     watchTopTabNavigator: AppStack,
+//     Login: {
+//         screen: Login,
+//         navigationOptions: {
+//             header: null
+//         }
+//     },
+// }, {
+//     initialRouteName: "Login",
+//     defaultNavigationOptions: {
+//         header: props => <CustomHeader {...props} />,
+//         headerStyle: {        
+//             backgroundColor: "transparent",
+//             color: 'blue'
+//         }
+//     }
+// })
+
+const MenuStack = createStackNavigator({
+    watchTopTabNavigator: AppStack
 }, {
-    initialRouteName: "Login",
+    initialRouteName: 'watchTopTabNavigator',
     defaultNavigationOptions: {
         header: props => <CustomHeader {...props} />,
         headerStyle: {        
@@ -100,6 +123,23 @@ const WatchRoute = createStackNavigator({
             color: 'blue'
         }
     }
+})
+
+const WatchRoute = createSwitchNavigator({
+  AuthLoading: AuthLoadingScreen,
+  App: MenuStack,
+  Auth: AuthStack
+}, {
+  initialRouteName: 'AuthLoading',
+  navigationOptions: {
+    // header: props => <CustomHeader {...props} />,
+    headerTitle: "Header",
+    headerStyle: {        
+        backgroundColor: "transparent",
+        color: 'blue'
+    }
+  }
+  
 })
 
 export default createAppContainer(WatchRoute);

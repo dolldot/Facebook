@@ -16,9 +16,9 @@ class Story extends Component {
         return (
             <View style={styles.storyList}>
                 <View style={styles.storyBox}>
-                    <ImageBackground source={storySrc} style={{width: '100%', height: '100%'}}>
+                    <ImageBackground source={{uri: storySrc}} style={{width: '100%', height: '100%'}}>
                         <View style={styles.storyIcon}>
-                            <ImageBackground source={storyIcon} style={{width: '100%', height: '100%'}} />
+                            <ImageBackground source={{uri: storyIcon}} style={{width: '100%', height: '100%'}} />
                         </View>
                         <View style={styles.storyName}>
                             <Text style={{color: 'white'}}>{storyName}</Text>
