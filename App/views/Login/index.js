@@ -52,30 +52,26 @@ class Login extends Component {
     const { navigate } = this.props.navigation;
     const { email, password } = this.state;
 
-    this.setState({ error: '', loading: true });
-
     axios.post('http://192.168.0.22:3000/users/login', {
       email: email,
       password: password
     })
       .then(function (response) {
         var token = response.data.access_token;
-        var userId = response.data.User.id.toString();
+        // var userId = response.data.User.id.toString();
         // console.log("user: " + userId);
-        deviceStorage.saveItem("userid", userId);
+        // deviceStorage.saveItem("userid", userId);
         deviceStorage.saveItem("token", token);
         
         navigate('App');
         
-        console.log("Token dari axios :" + token);
-        console.log("Email: " + email);
-        console.log("Password: " + password);
+        // console.log("Token dari axios :" + token);
+        // console.log("Email: " + email);
+        // console.log("Password: " + password);
       })
       .catch(function (error) {
         console.log("Bangke: " + error);
       })
-    
-    // this.props.navigation.navigate('AuthLoading');
   }
 
   render() {

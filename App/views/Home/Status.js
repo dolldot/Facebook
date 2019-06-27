@@ -19,16 +19,17 @@ class Status extends Component {
         statusComments: PropTypes.any.isRequired,
         statusDp: PropTypes.any.isRequired,
         likeAction: PropTypes.func.isRequired,
+        onFocus: PropTypes.any.isRequired
       }
     
     render() {
-        const { statusName, statusTime, statusContent, statusLikes, statusComments, statusDp, likeAction } = this.props;
+        const { statusName, statusTime, statusContent, statusLikes, statusComments, statusDp, likeAction, onFocus } = this.props;
 
         return (
           <View style={styles.status}>
             <View style={styles.statusList}>
 
-            <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
+            {/* <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}> */}
               <View style={styles.statusTitle}>
                 <View style={styles.statusDp}>
                   <ImageBackground source={{uri: statusDp}} style={{width: '100%', height: '100%'}} />
@@ -38,10 +39,12 @@ class Status extends Component {
                   <Text>{statusTime}</Text>
                 </View>
                 <View style={styles.statusMore}>
-                  <MaterialIcon name="more-horiz" size={20} color="black" />
+                  <TouchableOpacity onPress={onFocus}>
+                    <MaterialIcon name="more-horiz" size={20} color="black" />
+                  </TouchableOpacity>
                 </View>
               </View>
-            </TouchableHighlight>
+            {/* </TouchableHighlight> */}
             <TouchableHighlight underlayColor="rgba(225,225,225,0.8)" onPress={() => alert('Wow, aku terkejut XD')}>
               <View style={styles.statusContent}>
                 <View>
